@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"harbor-clean/model"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"sort"
 	"strconv"
+
+	"github.com/zlingqu/harbor-clean/model"
 )
 
 // Client

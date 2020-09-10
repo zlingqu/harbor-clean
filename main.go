@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"harbor-clean/harbor"
 	"sort"
+
+	"github.com/zlingqu/harbor-clean/harbor"
 )
 
 var (
