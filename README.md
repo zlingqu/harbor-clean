@@ -1,8 +1,12 @@
 # clean-harbor
 
-清理harbor仓库中的镜像tag,通过对镜像的tag按照构建时间的先后顺序排列，保留最新的keepNum个镜像，其余的全部清理。
+清理harbor仓库中的镜像tag。
+
+通过对镜像的tag按照构建时间的先后顺序排列，只保留最新的keepNum个镜像，其余的全部删除。
 
 支持一键清除所有。
+
+需要harbor的定时清理任务配合。
 
 # 1. 二进制执行
 
@@ -31,17 +35,17 @@ Usage of clean-harbor:
   -user string
         harbor账号
 ```
-## 1.3 执行清理
+## 1.3 手动执行清理
 Linux服务器上操作
 ```shell
 ./harbor-clean -url ** -user ** -password ** -projectName ** -keepNum **
 ```
 
-## 1.4crontab执行
+## 1.4 crontab定时任务执行
 
 ```shell
-# > crontab -l
-0 2 * 7 * /root/clean-harbor -url https://harbor.abc.com -user ** -password ** -projectName * -keepNum 100 >> /var/log/cleanHarbor.log
+# crontab -l
+0 2 * 7 * /root/clean-harbor -url https://harbor.abc.com -user ** -password ** -projectName * -keepNum 100 >> /var/log/harbor-clean`date "+%Y-%m-%d-%H:%M:%S"`.log
 ```
 
 
@@ -53,12 +57,12 @@ Linux服务器上操作
 # 做镜像,比如
 docker build . -t harbor.abc.com/devops/harbor-clean:v1
 ```
-## 2.2 docker run形式
+## 2.2 docker run形式执行
 ```
 # 执行清理
 docker run harbor.abc.com/devops/harbor-clean:v1 /data/harbor-clean -url ** -user ** -password ** -projectName ** -keepNum **
 ```
-## 2.3 k8s中执行
+## 2.3 k8s中CronJob形式执行
 
 ```yaml
 apiVersion: batch/v1beta1
@@ -86,7 +90,8 @@ spec:
 ```
 
 
-# 3 输出内容
+# 3. 输出内容
+正常输入如下类似格式：
 ```shell
 当前tag: 50  ，保留tag: 100  of xmc2-lexue/dispatcher-service            ,无需删除!
 当前tag: 19  ，保留tag: 100  of xmc2-lexue/engine-audio-process          ,无需删除!
