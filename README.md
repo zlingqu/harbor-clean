@@ -22,30 +22,33 @@ make build
 
 ```shell
 ./harbor-clean -h
-Usage of clean-harbor:
-  -h    help message
-  -keepNum int
-        每个repo保留的tag个数
-  -password string
-        harbor密码
-  -projectName string
-        项目名。注意：all 表示全部
-  -url string
-        harbor地址，例如https://harbor.abc.com
-  -user string
-        harbor账号
+harbor-clean 用于清理harbor的仓库中的tag，以释放存储资源
+
+Usage:
+  harbor-clean --url *  --user * --password * --projectName * --keepNum * [flags]
+
+Examples:
+harbor-clean --url https://harbor.abc.com  --user admin --password FJLSDfdso3489X --projectName abc-web --keepNum 200
+
+Flags:
+  -h, --help                 help for harbor-clean
+  -k, --keepNum int          保留的tag数目，例如50
+  -p, --password string      密码
+  -P, --projectName string   项目名，all表示所有项目
+  -u, --url string           例如：https://harbor.abc.com
+  -U, --user string          用户名，例如：admin
 ```
 ## 1.3 手动执行清理
 Linux服务器上操作
 ```shell
-./harbor-clean -url ** -user ** -password ** -projectName ** -keepNum **
+./harbor-clean --url ** --user ** --password ** --projectName ** --keepNum **
 ```
 
 ## 1.4 crontab定时任务执行
 
 ```shell
 # crontab -l
-0 2 * 7 * /root/clean-harbor -url https://harbor.abc.com -user ** -password ** -projectName * -keepNum 100 >> /var/log/harbor-clean`date "+%Y-%m-%d-%H:%M:%S"`.log
+0 2 * 7 * /root/clean-harbor -url https://harbor.abc.com --user ** --password ** --projectName * --keepNum 100 >> /var/log/harbor-clean`date "+%Y-%m-%d-%H:%M:%S"`.log
 ```
 
 
@@ -60,7 +63,7 @@ docker build . -t harbor.abc.com/devops/harbor-clean:v1
 ## 2.2 docker run形式执行
 ```
 # 执行清理
-docker run harbor.abc.com/devops/harbor-clean:v1 /data/harbor-clean -url ** -user ** -password ** -projectName ** -keepNum **
+docker run harbor.abc.com/devops/harbor-clean:v1 /data/harbor-clean --url ** --user ** --password ** --projectName ** --keepNum **
 ```
 ## 2.3 k8s中CronJob形式执行
 
@@ -86,7 +89,7 @@ spec:
             args:
             - "/bin/sh"
             - "-c"
-            - "-url ** -user ** -password ** -projectName ** -keepNum **"
+            - "--url ** --user ** --password ** --projectName ** --keepNum **"
 ```
 
 
