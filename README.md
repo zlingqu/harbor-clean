@@ -25,7 +25,7 @@ make build
 harbor-clean 用于清理harbor的仓库中的tag，以释放存储资源
 
 Usage:
-  harbor-clean --url *  --user * --password * --projectName * --keepNum * [flags]
+  harbor-clean [flags]
 
 Examples:
 harbor-clean --url https://harbor.abc.com  --user admin --password FJLSDfdso3489X --projectName abc-web --keepNum 200

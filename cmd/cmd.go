@@ -15,7 +15,7 @@ var (
 
 func NewHarborCleanCommand() *cobra.Command {
 	rootCmd := &cobra.Command{
-		Use:     "harbor-clean --url *  --user * --password * --projectName * --keepNum *",
+		Use:     "harbor-clean",
 		Short:   "harbor 仓库镜像清理",
 		Long:    "harbor-clean 用于清理harbor的仓库中的tag，以释放存储资源",
 		Example: "harbor-clean --url https://harbor.abc.com  --user admin --password FJLSDfdso3489X --projectName abc-web --keepNum 200",
