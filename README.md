@@ -89,7 +89,7 @@ spec:
             args:
             - "/bin/sh"
             - "-c"
-            - "--url ** --user ** --password ** --projectName ** --keepNum **"
+            - "./harbor-clean --url ** --user ** --password ** --projectName ** --keepNum **"
 ```
 
 
